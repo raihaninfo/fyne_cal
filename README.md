@@ -1,1 +1,1 @@
-# Basic calculator desktop app
+# Basic calculator desktop app using golang
