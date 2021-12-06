@@ -1,10 +1,13 @@
 package main
 
 import (
+	"strconv"
+
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
+	"github.com/Knetic/govaluate"
 )
 
 func main() {
@@ -14,9 +17,25 @@ func main() {
 
 	output := ""
 	input := widget.NewLabel(output)
+	historyOutput := ""
+	historyLabel := widget.NewLabel(historyOutput)
+	errorOutput := ""
+	EroorLabel := widget.NewLabel(errorOutput)
+
+	var historyArr []string
+	isHistory := false
 
 	historyBtn := widget.NewButton("History", func() {
-
+		if isHistory {
+			historyOutput = ""
+		} else {
+			for i := len(historyArr) - 1; i >= 0; i-- {
+				historyOutput = historyOutput + historyArr[i]
+				historyOutput += "\n"
+			}
+		}
+		isHistory = !isHistory
+		historyLabel.SetText(historyOutput)
 	})
 	backBtn := widget.NewButton("Back", func() {
 		if len(output) > 0 {
@@ -97,12 +116,33 @@ func main() {
 		output = output + "."
 		input.SetText(output)
 	})
+
 	equalBtn := widget.NewButton("=", func() {
 
+		expression, err := govaluate.NewEvaluableExpression(output)
+		if err == nil {
+			result, err := expression.Evaluate(nil)
+			if err == nil {
+				ans := strconv.FormatFloat(result.(float64), 'f', -1, 64)
+				strToAppend := output + " + " + ans
+				historyArr = append(historyArr, strToAppend)
+				output = ans
+
+			} else {
+				output = "error"
+
+			}
+		} else {
+			output = "error"
+
+		}
+		input.SetText(output)
 	})
 
 	w.SetContent(container.NewVBox(
+		EroorLabel,
 		input,
+		historyLabel,
 		container.NewGridWithColumns(1,
 			container.NewGridWithColumns(2,
 				historyBtn,

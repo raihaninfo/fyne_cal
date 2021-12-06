@@ -2,7 +2,10 @@ module github.com/raihaninfo/fyne_cal
 
 go 1.17
 
-require fyne.io/fyne/v2 v2.1.1
+require (
+	fyne.io/fyne/v2 v2.1.1
+	github.com/Knetic/govaluate v3.0.0+incompatible
+)
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
