@@ -1,5 +1,5 @@
 package main
 
-func main(){
-	a:= app
+func main() {
+	app.new()
 }
