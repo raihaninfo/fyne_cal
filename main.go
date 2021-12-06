@@ -19,8 +19,11 @@ func main() {
 	input := widget.NewLabel(output)
 	historyOutput := ""
 	historyLabel := widget.NewLabel(historyOutput)
-	errorOutput := ""
-	EroorLabel := widget.NewLabel(errorOutput)
+	errorOutput := "Calculator"
+	ErrorLabel := widget.NewLabel(errorOutput)
+
+	copyright := "Made With ♥ by Raihan"
+	copyrightLabel := widget.NewLabel(copyright)
 
 	var historyArr []string
 	isHistory := false
@@ -51,7 +54,11 @@ func main() {
 	// clear button
 	claerBtn := widget.NewButton("clear", func() {
 		output = ""
+		historyOutput = ""
+		errorOutput = "Calculator"
 		input.SetText(output)
+		historyLabel.SetText(historyOutput)
+		ErrorLabel.SetText(errorOutput)
 	})
 
 	// open button
@@ -151,17 +158,18 @@ func main() {
 				historyArr = append(historyArr, strToAppend)
 				output = ans
 			} else {
-				output = "error"
+				errorOutput = "error"
 			}
 		} else {
-			output = "error"
+			errorOutput = "error"
 
 		}
+		ErrorLabel.SetText(errorOutput)
 		input.SetText(output)
 	})
 
 	w.SetContent(container.NewVBox(
-		EroorLabel,
+		ErrorLabel,
 		input,
 		historyLabel,
 		container.NewGridWithColumns(1,
@@ -203,6 +211,7 @@ func main() {
 				),
 			),
 		),
+		copyrightLabel,
 	))
 
 	w.ShowAndRun()
