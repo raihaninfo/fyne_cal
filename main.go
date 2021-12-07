@@ -1,10 +1,12 @@
 package main
 
 import (
+	"image/color"
 	"strconv"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
 	"github.com/Knetic/govaluate"
@@ -22,8 +24,8 @@ func main() {
 	errorOutput := "Calculator"
 	ErrorLabel := widget.NewLabel(errorOutput)
 
-	copyright := "Made With ♥ by Raihan"
-	copyrightLabel := widget.NewLabel(copyright)
+	copyright := canvas.NewText("Made With ♥ by Raihan", color.Black)
+	copyrightLabel := widget.NewLabel(copyright.Text)
 
 	var historyArr []string
 	isHistory := false
