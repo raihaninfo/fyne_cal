@@ -40,6 +40,7 @@ func main() {
 				historyOutput += "\n"
 			}
 		}
+
 		isHistory = !isHistory
 		historyLabel.SetText(historyOutput)
 	})
